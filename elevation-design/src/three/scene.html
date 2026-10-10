@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>html,body{margin:0;background:#e9e8e4;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const M = await (await fetch('model.json')).json();
+const q = new URLSearchParams(location.search);
+const viewName = q.get('view') || 'ne';
+const W = +(q.get('w') || 1600), H = +(q.get('h') || 1000);
+
+const BX = M.bld.X, BY = M.bld.Y, L = M.levels;
+const ST = M.stair, BN = M.balcony.north, BE = M.balcony.east;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H);
+renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.12;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.4;
+
+// sky gradient backdrop
+const sky = document.createElement('canvas'); sky.width = 4; sky.height = 512;
+{ const g = sky.getContext('2d'); const gr = g.createLinearGradient(0, 0, 0, 512);
+  gr.addColorStop(0, '#9dbfd8'); gr.addColorStop(0.55, '#d6e4ee'); gr.addColorStop(1, '#f1efe9');
+  g.fillStyle = gr; g.fillRect(0, 0, 4, 512); }
+const skyTex = new THREE.CanvasTexture(sky); skyTex.colorSpace = THREE.SRGBColorSpace;
+scene.background = skyTex;
+
+// model (X north->south, Y east->west, Z up)  ->  three (x east, y up, z south)
+const P = (X, Y, Z) => new THREE.Vector3(-Y, Z, X);
+
+const mat = {
+  plaster: new THREE.MeshStandardMaterial({ color: 0xf1efea, roughness: 0.92 }),
+  inside: new THREE.MeshStandardMaterial({ color: 0xe6e3dc, roughness: 1, side: THREE.DoubleSide }),
+  plinth: new THREE.MeshStandardMaterial({ color: 0x6f6c66, roughness: 0.95 }),
+  slab: new THREE.MeshStandardMaterial({ color: 0xe8e6e0, roughness: 0.9 }),
+  frame: new THREE.MeshStandardMaterial({ color: 0x1b1b1b, roughness: 0.5, metalness: 0.4 }),
+  door: new THREE.MeshStandardMaterial({ color: 0x2b2a28, roughness: 0.6 }),
+  coping: new THREE.MeshStandardMaterial({ color: 0x2b2a28, roughness: 0.7 }),
+  glass: new THREE.MeshPhysicalMaterial({ color: 0x9fc2d3, roughness: 0.04, metalness: 0.0, transparent: true, opacity: 0.42, envMapIntensity: 1.6, side: THREE.DoubleSide, depthWrite: false }),
+  frost: new THREE.MeshPhysicalMaterial({ color: 0xc3d3d9, roughness: 0.35, transparent: true, opacity: 0.85, envMapIntensity: 1.0 }),
+  rail: new THREE.MeshPhysicalMaterial({ color: 0xbfd9e3, roughness: 0.03, transparent: true, opacity: 0.30, envMapIntensity: 1.8, side: THREE.DoubleSide, depthWrite: false }),
+  steel: new THREE.MeshStandardMaterial({ color: 0x3a3a3a, roughness: 0.35, metalness: 0.8 }),
+  ground: new THREE.MeshStandardMaterial({ color: 0xb4b9a4, roughness: 1 }),
+  road: new THREE.MeshStandardMaterial({ color: 0x7d7d7a, roughness: 1 }),
+  paving: new THREE.MeshStandardMaterial({ color: 0xd9d6cd, roughness: 1 }),
+  line: new THREE.MeshStandardMaterial({ color: 0x8b8880, roughness: 1 }),
+};
+
+// charcoal stair cladding with fine vertical joints
+{
+  const c = document.createElement('canvas'); c.width = 512; c.height = 512;
+  const g = c.getContext('2d'); g.fillStyle = '#5d5a55'; g.fillRect(0, 0, 512, 512);
+  g.strokeStyle = '#4a4844'; g.lineWidth = 2;
+  for (let i = 0; i <= 8; i++) { g.beginPath(); g.moveTo(i * 64, 0); g.lineTo(i * 64, 512); g.stroke(); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  mat.cladding = new THREE.MeshStandardMaterial({ map: t, roughness: 0.85 });
+  mat._cladTex = t;
+}
+
+function box(x0, x1, y0, y1, z0, z1, material, cast = true, recv = true) {
+  // model-space box: X in [x0,x1], Y in [y0,y1], Z in [z0,z1]
+  const g = new THREE.BoxGeometry(y1 - y0, z1 - z0, x1 - x0);
+  const m = new THREE.Mesh(g, material);
+  m.position.copy(P((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2));
+  m.castShadow = cast; m.receiveShadow = recv;
+  scene.add(m); return m;
+}
+
+// ground
+{
+  const g = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), mat.ground);
+  g.rotation.x = -Math.PI / 2; g.position.y = -0.02; g.receiveShadow = true; scene.add(g);
+  // plot (45' x 42') paving with boundary line
+  const x0 = -5.5, x1 = 39.5, y0 = -9, y1 = 33;
+  box(x0, x1, y0, y1, -0.01, 0.0, mat.paving, false, true);
+  // roads: North Road runs along x (north side), East Road along the east side
+  box(x0 - 20, x0 - 2, -80, 90, -0.005, 0.01, mat.road, false, true);
+  box(-80, 120, y0 - 20, y0 - 2, -0.005, 0.012, mat.road, false, true);
+  const t = 0.35;
+  box(x0, x1, y0, y0 + t, 0, 0.03, mat.line, false, true);
+  box(x0, x1, y1 - t, y1, 0, 0.03, mat.line, false, true);
+  box(x0, x0 + t, y0, y1, 0, 0.03, mat.line, false, true);
+  box(x1 - t, x1, y0, y1, 0, 0.03, mat.line, false, true);
+}
+
+// plinth + slabs + roof
+box(0, BX, 0, BY, 0, L.plinth, mat.plinth);
+box(0.05, BX - 0.05, 0.05, BY - 0.05, L.gf_ceiling, L.ff, mat.slab);
+box(0.05, BX - 0.05, 0.05, BY - 0.05, L.ff_ceiling, L.roof, mat.slab);
+// balcony slabs (north: 4' deep over full width, wraps to east: 6'-6" deep up to the stair)
+box(-BN, 0, -BE, BY, L.gf_ceiling, L.ff, mat.slab);
+box(0, ST.x0, -BE, 0, L.gf_ceiling, L.ff, mat.slab);
+
+// wall frames: basis (s,z,d) -> world ; chosen right-handed so winding stays correct
+const T = 0.75;
+const walls = {
+  north: { len: BY, basis: [[1, 0, 0], [0, 1, 0], [0, 0, 1]], origin: [-BY, 0, 0], coord: (a) => BY - a },
+  east: { len: BX, basis: [[0, 0, 1], [0, 1, 0], [-1, 0, 0]], origin: [0, 0, 0], coord: (a) => a },
+  south: { len: BY, basis: [[-1, 0, 0], [0, 1, 0], [0, 0, -1]], origin: [0, 0, BX], coord: (a) => a },
+  west: { len: BX, basis: [[0, 0, -1], [0, 1, 0], [1, 0, 0]], origin: [-BY, 0, BX], coord: (a) => BX - a },
+};
+
+const Z0 = L.plinth, Z1 = L.parapet;
+
+function openingZ(kind, level) {
+  if (kind === 'door' || kind === 'slider') return [level, level + M.head];
+  if (kind === 'vent') return [level + M.ventSill, level + M.head];
+  return [level + M.sill, level + M.head];
+}
+
+function addWall(name) {
+  const w = walls[name];
+  const shape = new THREE.Shape();
+  shape.moveTo(0, Z0); shape.lineTo(w.len, Z0); shape.lineTo(w.len, Z1); shape.lineTo(0, Z1); shape.closePath();
+  const items = [];
+  for (const [floor, level] of [['gf', L.plinth], ['ff', L.ff]]) {
+    for (const o of M[floor][name]) {
+      const [z0, z1] = openingZ(o.kind, level);
+      let s0 = w.coord(o.a), s1 = w.coord(o.b); if (s0 > s1) [s0, s1] = [s1, s0];
+      items.push({ o, s0, s1, z0, z1 });
+      const h = new THREE.Path();
+      h.moveTo(s0, z0); h.lineTo(s1, z0); h.lineTo(s1, z1); h.lineTo(s0, z1); h.closePath();
+      shape.holes.push(h);
+    }
+  }
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: T, bevelEnabled: false });
+  const mesh = new THREE.Mesh(geo, mat.plaster);
+  const grp = new THREE.Group();
+  const b = w.basis;
+  const m4 = new THREE.Matrix4().makeBasis(new THREE.Vector3(...b[0]), new THREE.Vector3(...b[1]), new THREE.Vector3(...b[2]));
+  m4.setPosition(...w.origin);
+  grp.matrixAutoUpdate = false; grp.matrix.copy(m4);
+  mesh.castShadow = true; mesh.receiveShadow = true;
+  grp.add(mesh);
+
+  const rec = 0.32; // reveal depth of frames from the outer face
+  const fr = 0.14;
+  const lbox = (s0, s1, z0, z1, d0, d1, material) => {
+    const g = new THREE.BoxGeometry(s1 - s0, z1 - z0, d1 - d0);
+    const mm = new THREE.Mesh(g, material);
+    mm.position.set((s0 + s1) / 2, (z0 + z1) / 2, (d0 + d1) / 2);
+    mm.castShadow = true; mm.receiveShadow = true; grp.add(mm); return mm;
+  };
+  for (const it of items) {
+    const { o, s0, s1, z0, z1 } = it;
+    const d0 = rec, d1 = rec + 0.22;
+    if (o.kind === 'door') {
+      lbox(s0, s1, z0, z1, d0, d1 + 0.05, mat.door);
+      lbox(s1 - 0.5, s1 - 0.43, z0 + 3.0, z0 + 4.2, d0 - 0.04, d0, mat.steel);
+    } else if (o.kind === 'slider') {
+      lbox(s0, s1, z0, z0 + fr, d0, d1, mat.frame);
+      lbox(s0, s1, z1 - fr, z1, d0, d1, mat.frame);
+      const n = o.panels, pw = (s1 - s0) / n;
+      for (let i = 0; i <= n; i++) lbox(s0 + i * pw - (i === n ? fr : 0), s0 + i * pw + (i === 0 ? fr : 0.06), z0, z1, d0, d1, mat.frame);
+      for (let i = 0; i < n; i++) {
+        const gm = lbox(s0 + i * pw + 0.06, s0 + (i + 1) * pw - 0.03, z0 + fr, z1 - fr, d0 + 0.08 + (i % 2) * 0.06, d0 + 0.1 + (i % 2) * 0.06, mat.glass);
+        gm.castShadow = false;
+      }
+    } else {
+      lbox(s0, s1, z0, z0 + fr, d0, d1, mat.frame);
+      lbox(s0, s1, z1 - fr, z1, d0, d1, mat.frame);
+      lbox(s0, s0 + fr, z0, z1, d0, d1, mat.frame);
+      lbox(s1 - fr, s1, z0, z1, d0, d1, mat.frame);
+      if (o.kind !== 'vent') lbox((s0 + s1) / 2 - 0.05, (s0 + s1) / 2 + 0.05, z0, z1, d0, d1, mat.frame);
+      const gm = lbox(s0 + fr, s1 - fr, z0 + fr, z1 - fr, d0 + 0.09, d0 + 0.11, o.kind === 'vent' ? mat.frost : mat.glass);
+      gm.castShadow = false;
+    }
+  }
+  scene.add(grp);
+}
+['north', 'east', 'south', 'west'].forEach(addWall);
+
+// dark interior fill so the glass reads as glass
+box(0.8, BX - 0.8, 0.8, BY - 0.8, L.plinth + 0.01, L.gf_ceiling - 0.01, mat.inside, false, false);
+box(0.8, BX - 0.8, 0.8, BY - 0.8, L.ff + 0.01, L.ff_ceiling - 0.01, mat.inside, false, false);
+
+// coping ring on the main roof
+const cp = 0.2, ov = 0.12;
+box(-ov, BX + ov, -ov, BY + ov, L.parapet, L.parapet + cp, mat.coping);
+
+// covered stair enclosure
+{
+  const { x0, x1, y0, y1 } = ST;
+  const top = L.stair_roof;
+  const b = box(x0, x1, y0, y1, 0, top, mat.cladding);
+  // texture repeat so joints are ~1ft
+  mat._cladTex.repeat.set(1, 1);
+  box(x0 - 0.04, x1, y0 - 0.04, y1, 0, L.plinth, mat.coping);
+  box(x0 - ov, x1 + 0.0, y0 - ov, y1, top, top + cp, mat.coping);
+  const lbox = (xa, xb, ya, yb, za, zb, material) => box(xa, xb, ya, yb, za, zb, material, false, true);
+  const slotEast = (xc, za, zb) => {
+    const w = M.stairSlots.w, e = y0 - 0.06;
+    lbox(xc - w / 2, xc + w / 2, e, y0, za, zb, mat.frame);
+    lbox(xc - w / 2 + 0.1, xc + w / 2 - 0.1, e - 0.01, y0 - 0.06 + 0.01, za + 0.1, zb - 0.1, mat.frost);
+  };
+  for (const xc of M.stairSlots.x) for (const [za, zb] of M.stairSlots.tiers) slotEast(xc, za, zb);
+  // head ribbon on the east face
+  lbox(23.7, 35.0, y0 - 0.06, y0, 26.6, 28.4, mat.frame);
+  lbox(23.82, 34.88, y0 - 0.07, y0 - 0.05, 26.72, 28.28, mat.frost);
+  // south slots
+  for (const [za, zb] of M.stairSlots.tiers) {
+    const yc = -3.04, w = M.stairSlots.w;
+    lbox(x1, x1 + 0.06, yc - w / 2, yc + w / 2, za, zb, mat.frame);
+    lbox(x1 + 0.055, x1 + 0.07, yc - w / 2 + 0.1, yc + w / 2 - 0.1, za + 0.1, zb - 0.1, mat.frost);
+  }
+  // doors on the north face (x = x0)
+  const doorN = (ya, yb, z) => {
+    lbox(x0 - 0.08, x0, ya, yb, z, z + M.head, mat.door);
+    lbox(x0 - 0.1, x0 - 0.08, ya + 0.3, ya + 0.37, z + 3, z + 4.2, mat.steel);
+  };
+  doorN(M.stairDoors.gf[0], M.stairDoors.gf[1], L.plinth);
+  doorN(M.stairDoors.ff[0], M.stairDoors.ff[1], L.ff);
+}
+
+// glass balustrades (3'-6") on the north + east balcony edges and the west return
+function balustrade(pts) {
+  // pts: list of [X,Y] polyline points along the guard line
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [xa, ya] = pts[i], [xb, yb] = pts[i + 1];
+    const len = Math.hypot(xb - xa, yb - ya);
+    const n = Math.max(1, Math.round(len / 4.5));
+    for (let k = 0; k < n; k++) {
+      const t0 = k / n, t1 = (k + 1) / n;
+      const ax = xa + (xb - xa) * t0, ay = ya + (yb - ya) * t0, bx = xa + (xb - xa) * t1, by = ya + (yb - ya) * t1;
+      const gap = 0.04;
+      const dx = (bx - ax), dy = (by - ay), l = Math.hypot(dx, dy);
+      const ux = dx / l, uy = dy / l;
+      const sx = ax + ux * gap, sy = ay + uy * gap, ex = bx - ux * gap, ey = by - uy * gap;
+      const thick = 0.05;
+      const x0 = Math.min(sx, ex) - (Math.abs(ux) < 0.5 ? thick : 0), x1 = Math.max(sx, ex) + (Math.abs(ux) < 0.5 ? thick : 0);
+      const y0 = Math.min(sy, ey) - (Math.abs(uy) < 0.5 ? thick : 0), y1 = Math.max(sy, ey) + (Math.abs(uy) < 0.5 ? thick : 0);
+      const g = box(x0, x1, y0, y1, L.ff + 0.25, L.ff + 3.5, mat.rail, false, false);
+    }
+    const x0 = Math.min(xa, xb) - (Math.abs(xb - xa) < 0.01 ? 0.05 : 0), x1 = Math.max(xa, xb) + (Math.abs(xb - xa) < 0.01 ? 0.05 : 0);
+    const y0 = Math.min(ya, yb) - (Math.abs(yb - ya) < 0.01 ? 0.05 : 0), y1 = Math.max(ya, yb) + (Math.abs(yb - ya) < 0.01 ? 0.05 : 0);
+    box(x0, x1, y0, y1, L.ff + 3.5, L.ff + 3.62, mat.steel);
+    box(x0, x1, y0, y1, L.ff, L.ff + 0.25, mat.steel);
+  }
+}
+const inset = 0.15;
+balustrade([[ST.x0 - 0.05, -BE + inset], [-BN + inset, -BE + inset], [-BN + inset, BY - inset], [0, BY - inset]]);
+
+// lighting
+const hemi = new THREE.HemisphereLight(0xdfeaf2, 0xb9b3a6, 0.45); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xfff1dc, 3.6);
+const sunPos = viewName === 'sw' ? [-70, 85, 90] : viewName === 'se' ? [60, 85, 70] : viewName === 'nw' ? [-60, 85, -70] : [75, 85, -55];
+sun.position.set(...sunPos);
+sun.target.position.set(-15, 8, 18);
+sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096);
+const sc = sun.shadow.camera; sc.left = -70; sc.right = 70; sc.top = 70; sc.bottom = -70; sc.near = 1; sc.far = 300;
+sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.04;
+scene.add(sun, sun.target);
+const fill = new THREE.DirectionalLight(0xcfe0f0, 0.5); fill.position.set(-40, 30, 60); scene.add(fill);
+
+// cameras
+const cam = new THREE.PerspectiveCamera(25, W / H, 1, 1000);
+const C = { ne: [82, 30, -72], se: [84, 30, 88], sw: [-88, 30, 98], nw: [-88, 30, -76] };
+const centre = new THREE.Vector3(-14, 11.5, 18);
+if (viewName === 'ne') { cam.position.set(...C.ne); }
+else if (viewName === 'se') cam.position.set(...C.se);
+else if (viewName === 'sw') cam.position.set(...C.sw);
+else if (viewName === 'nw') cam.position.set(...C.nw);
+else if (viewName === 'top') { cam.position.set(-12, 120, 55); cam.fov = 26; }
+cam.lookAt(centre); cam.updateProjectionMatrix();
+
+renderer.render(scene, cam);
+window.__done = true;
+</script>
+</body>
+</html>

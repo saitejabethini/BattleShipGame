@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1339" height="916" viewBox="0 0 1339 916">
+<defs>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9FB8C4"/><stop offset="1" stop-color="#DCE7EB"/></linearGradient>
+<linearGradient id="frost" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D6DFE2"/><stop offset="1" stop-color="#F0F4F5"/></linearGradient>
+<linearGradient id="rail" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C6DEE7" stop-opacity="0.55"/><stop offset="0.5" stop-color="#E8F3F7" stop-opacity="0.35"/><stop offset="1" stop-color="#C6DEE7" stop-opacity="0.55"/></linearGradient>
+<linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0.30"/><stop offset="1" stop-color="#000" stop-opacity="0.04"/></linearGradient>
+<linearGradient id="wallg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5F1"/><stop offset="1" stop-color="#ECE9E2"/></linearGradient>
+</defs>
+<rect width="100%" height="100%" fill="#FAFAF8"/>
+<text x="90.0" y="34.0" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#111" text-anchor="start" font-weight="700" >WEST ELEVATION</text>
+<text x="90.0" y="54.0" font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="start" font-weight="400" >Rear elevation, 4'-0" setback   |   dimensions in feet-inches, measured from the left edge of the building</text>
+<rect x="51.00" y="876.00" width="1157.00" height="20.80" fill="#D9D5CB" />
+<line x1="51.00" y1="876.00" x2="1208.00" y2="876.00" stroke="#111" stroke-width="2.2"/>
+<rect x="784.20" y="83.00" width="371.80" height="793.00" fill="#5D5A55" stroke="#2A2926" stroke-width="0.8" />
+<line x1="810.20" y1="874.70" x2="810.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="836.20" y1="874.70" x2="836.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="862.20" y1="874.70" x2="862.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="888.20" y1="874.70" x2="888.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="914.20" y1="874.70" x2="914.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="940.20" y1="874.70" x2="940.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="966.20" y1="874.70" x2="966.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="992.20" y1="874.70" x2="992.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="1018.20" y1="874.70" x2="1018.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="1044.20" y1="874.70" x2="1044.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="1070.20" y1="874.70" x2="1070.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="1096.20" y1="874.70" x2="1096.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="1122.20" y1="874.70" x2="1122.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<line x1="1148.20" y1="874.70" x2="1148.20" y2="84.30" stroke="#6C6963" stroke-width="0.6"/>
+<rect x="781.08" y="77.80" width="378.04" height="5.72" fill="#2B2A28" />
+<rect x="207.00" y="226.00" width="949.00" height="650.00" fill="url(#wallg)" stroke="#2A2926" stroke-width="0.8" />
+<rect x="207.00" y="837.00" width="949.00" height="39.00" fill="#77746E" stroke="#2A2926" stroke-width="0.8" />
+<rect x="203.88" y="220.80" width="955.24" height="5.72" fill="#2B2A28" />
+<line x1="207.00" y1="564.00" x2="1156.00" y2="564.00" stroke="#CFCBC2" stroke-width="0.7"/>
+<rect x="490.40" y="655.00" width="73.32" height="65.00" fill="#1C1C1C" />
+<rect x="494.04" y="658.64" width="66.04" height="57.72" fill="url(#frost)" />
+<line x1="494.04" y1="704.82" x2="560.08" y2="704.82" stroke="#9AA7AB" stroke-width="0.6"/>
+<line x1="494.04" y1="693.27" x2="560.08" y2="693.27" stroke="#9AA7AB" stroke-width="0.6"/>
+<line x1="494.04" y1="681.73" x2="560.08" y2="681.73" stroke="#9AA7AB" stroke-width="0.6"/>
+<line x1="494.04" y1="670.18" x2="560.08" y2="670.18" stroke="#9AA7AB" stroke-width="0.6"/>
+<rect x="627.16" y="655.00" width="73.32" height="104.00" fill="#1C1C1C" />
+<rect x="630.80" y="658.64" width="66.04" height="96.72" fill="url(#glass)" />
+<rect x="662.52" y="658.64" width="2.60" height="96.72" fill="#1C1C1C" />
+<polygon points="630.8,739.8 649.0,755.4 659.4,755.4 630.8,716.4" fill="#fff" fill-opacity="0.28"/>
+<rect x="963.60" y="655.00" width="73.58" height="104.00" fill="#1C1C1C" />
+<rect x="967.24" y="658.64" width="66.30" height="96.72" fill="url(#glass)" />
+<rect x="999.09" y="658.64" width="2.60" height="96.72" fill="#1C1C1C" />
+<polygon points="967.2,739.8 985.4,755.4 995.8,755.4 967.2,716.4" fill="#fff" fill-opacity="0.28"/>
+<rect x="379.12" y="382.00" width="73.32" height="104.00" fill="#1C1C1C" />
+<rect x="382.76" y="385.64" width="66.04" height="96.72" fill="url(#glass)" />
+<rect x="414.48" y="385.64" width="2.60" height="96.72" fill="#1C1C1C" />
+<polygon points="382.8,466.8 401.0,482.4 411.4,482.4 382.8,443.4" fill="#fff" fill-opacity="0.28"/>
+<rect x="756.12" y="382.00" width="73.32" height="104.00" fill="#1C1C1C" />
+<rect x="759.76" y="385.64" width="66.04" height="96.72" fill="url(#glass)" />
+<rect x="791.48" y="385.64" width="2.60" height="96.72" fill="#1C1C1C" />
+<polygon points="759.8,466.8 778.0,482.4 788.4,482.4 759.8,443.4" fill="#fff" fill-opacity="0.28"/>
+<rect x="996.62" y="382.00" width="73.32" height="104.00" fill="#1C1C1C" />
+<rect x="1000.26" y="385.64" width="66.04" height="96.72" fill="url(#glass)" />
+<rect x="1031.98" y="385.64" width="2.60" height="96.72" fill="#1C1C1C" />
+<polygon points="1000.3,466.8 1018.5,482.4 1028.9,482.4 1000.3,443.4" fill="#fff" fill-opacity="0.28"/>
+<rect x="103.00" y="564.00" width="104.00" height="13.00" fill="#E9E7E1" stroke="#2A2926" stroke-width="0.9" />
+<rect x="104.04" y="473.00" width="101.92" height="84.50" fill="url(#rail)" stroke="#7FA3B2" stroke-width="0.8" />
+<circle cx="123.8" cy="549.7" r="2" fill="#8D8D8D"/>
+<circle cx="186.2" cy="549.7" r="2" fill="#8D8D8D"/>
+<rect x="103.00" y="557.50" width="104.00" height="6.50" fill="#6E6E6E" />
+<rect x="103.00" y="469.88" width="104.00" height="3.12" fill="#3A3A3A" />
+<circle cx="350.0" cy="742.1" r="10.9" fill="#B5B2AA"/>
+<rect x="335.70" y="756.40" width="28.60" height="78.00" fill="#B5B2AA" />
+<rect x="338.30" y="831.80" width="10.40" height="44.20" fill="#B5B2AA" />
+<rect x="351.30" y="831.80" width="10.40" height="44.20" fill="#B5B2AA" />
+<line x1="1179.4" y1="876.0" x2="1201.4" y2="876.0" stroke="#6B6A66" stroke-width="0.8"/>
+<polygon points="1201.4,876.0 1209.4,871.0 1217.4,876.0 1209.4,881.0" fill="none" stroke="#6B6A66" stroke-width="0.8"/>
+<text x="1223.4" y="880.0" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#333" text-anchor="start" font-weight="600" >+0'-0"</text>
+<text x="1223.4" y="891.0" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#6B6A66" text-anchor="start" font-weight="400" >GROUND LEVEL</text>
+<line x1="1179.4" y1="837.0" x2="1201.4" y2="837.0" stroke="#6B6A66" stroke-width="0.8"/>
+<polygon points="1201.4,837.0 1209.4,832.0 1217.4,837.0 1209.4,842.0" fill="none" stroke="#6B6A66" stroke-width="0.8"/>
+<text x="1223.4" y="841.0" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#333" text-anchor="start" font-weight="600" >+1'-6"</text>
+<text x="1223.4" y="852.0" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#6B6A66" text-anchor="start" font-weight="400" >GF LEVEL (PLINTH)</text>
+<line x1="1179.4" y1="564.0" x2="1201.4" y2="564.0" stroke="#6B6A66" stroke-width="0.8"/>
+<polygon points="1201.4,564.0 1209.4,559.0 1217.4,564.0 1209.4,569.0" fill="none" stroke="#6B6A66" stroke-width="0.8"/>
+<text x="1223.4" y="568.0" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#333" text-anchor="start" font-weight="600" >+12'-0"</text>
+<text x="1223.4" y="579.0" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#6B6A66" text-anchor="start" font-weight="400" >FIRST FLOOR LEVEL</text>
+<line x1="1179.4" y1="304.0" x2="1201.4" y2="304.0" stroke="#6B6A66" stroke-width="0.8"/>
+<polygon points="1201.4,304.0 1209.4,299.0 1217.4,304.0 1209.4,309.0" fill="none" stroke="#6B6A66" stroke-width="0.8"/>
+<text x="1223.4" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#333" text-anchor="start" font-weight="600" >+22'-0"</text>
+<text x="1223.4" y="319.0" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#6B6A66" text-anchor="start" font-weight="400" >TERRACE LEVEL</text>
+<line x1="1179.4" y1="226.0" x2="1201.4" y2="226.0" stroke="#6B6A66" stroke-width="0.8"/>
+<polygon points="1201.4,226.0 1209.4,221.0 1217.4,226.0 1209.4,231.0" fill="none" stroke="#6B6A66" stroke-width="0.8"/>
+<text x="1223.4" y="230.0" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#333" text-anchor="start" font-weight="600" >+25'-0"</text>
+<text x="1223.4" y="241.0" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#6B6A66" text-anchor="start" font-weight="400" >PARAPET TOP</text>
+<line x1="1179.4" y1="83.0" x2="1201.4" y2="83.0" stroke="#6B6A66" stroke-width="0.8"/>
+<polygon points="1201.4,83.0 1209.4,78.0 1217.4,83.0 1209.4,88.0" fill="none" stroke="#6B6A66" stroke-width="0.8"/>
+<text x="1223.4" y="87.0" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#333" text-anchor="start" font-weight="600" >+30'-6"</text>
+<text x="1223.4" y="98.0" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#6B6A66" text-anchor="start" font-weight="400" >STAIR CAP</text>
+</svg>

@@ -1,41 +1,52 @@
-# Valamil Residence — Minimalist Elevation Design
+# Valamil Residence - plan-aligned minimalist elevations
 
-Two-storey **modern minimalist** elevation derived from the ground and first floor plans.
+Open `index.html` for the full presentation (3D views, four elevations, opening tables, alignment sheets).
 
-## Plan summary
+## What changed from the previous version
 
-| Level | Key spaces |
-| --- | --- |
-| **Ground** | Drawing (13'-9" × 23'-6"), Kitchen/Dining (14'-9" × 13'-9"), Pooja (5'-0" × 4'-0"), Master bedroom (20'-6" × 14'-0"), Toilet (13'-9" × 5'-0") |
-| **First** | Sit-out (28'-3½" × 13'-9"), 2 bedrooms (~14' × 14'), 2 toilets, North balcony 6'-6", West balcony 4'-0" |
-| **Footprint** | Building C/C ≈ 35'-9½" × 29'-3" (~36'-6" N–S × 30'-0" E–W) |
-| **Site** | Corner plot — North Road + East Road; parking in 9' east setback; stair on east (now enclosed) |
+The earlier AI-generated images did not follow the plans: north and east were mirrored, balconies were on the wrong sides, and openings were invented. These elevations are now drawn from the measured geometry of the two PDFs.
 
-## Design brief (this revision)
+## How the plan reads
 
-- **Style:** Modern minimalist — white plaster, slim black frames, flat roof, no ornament
-- **First floor north:** Frameless **glass balcony** + full-height **sliding glass doors** from sit-out
-- **Ground floor:** Openings kept as per plan (Drawing fenestration on north; kitchen / master / toilet as planned)
-- **Staircase:** Former external east stair **covered and enclosed**, expressed as a vertical volume with glazed slot — part of the facade, not an open bolt-on
+The plan sheets are rotated. Reading them upright:
 
-## Elevations
+- **North Road is on the left**, **East Road is on top** (north arrow points left).
+- Plot 45' (N-S) x 42' (E-W). Building 36'-6" (N-S) x 30'-0" (E-W).
+- Setbacks: east 9' (car park and external stair), west 4', south 3'.
+- First floor: **4'-0" balcony on the north side**, **6'-6" balcony on the east side**, joined at the north-east corner. The stair sits at the south end of the east side, beside the east balcony.
 
-### North (North Road)
-- GF west→east: toilet mass (quiet) → Drawing room (3 tall windows) → NE return toward kitchen/stair
-- FF: 6'-6" glass balustrade balcony; multi-panel sliding doors to sit-out; 4'-0" west glass return
-- Far east: enclosed stair box with vertical glass
+## Openings (feet-inches from the building's left edge as seen in each elevation)
 
-### East (East Road)
-- Porch slab over car bay
-- Enclosed stair tower as primary vertical element
-- Kitchen openings near stair; master bedroom windows toward south
+See the tables in `index.html`, generated from `src/model.py`. Summary:
 
-## Deliverables
+| Face | Ground floor | First floor |
+| --- | --- | --- |
+| North | entry door, Drawing window | 4-panel sliding glass door to 4'-0" balcony, toilet window |
+| East | main entrance, Drawing window, Pooja window, Kitchen window (now inside the covered stair) | sliding door to 6'-6" balcony, two windows |
+| South | kitchen service door, dining window, master bedroom window | toilet window, bedroom window |
+| West | toilet window, two master bedroom windows | three bedroom windows |
 
-| File | Description |
-| --- | --- |
-| `north-elevation-minimalist.jpg` | North elevation (primary) |
-| `east-elevation-minimalist.jpg` | East elevation with enclosed stair |
-| `corner-perspective-minimalist.jpg` | NE corner 3D view |
-| `ground_floor.png` / `first_floor.png` | Source plans |
-| Earlier `*-elevation.jpg` / `corner-perspective.jpg` | Previous tropical concept (superseded) |
+## Design
+
+- Minimalist: white plaster, slim black frames, flat roof with dark coping.
+- Frameless glass balustrade (3'-6") on both balconies, wrapping the north-east corner.
+- The external stair is enclosed as a charcoal-clad vertical volume, flush with the south wall and the balcony edge, with slim light slots and a head ribbon.
+
+## Assumptions to confirm
+
+- Heights: plinth 1'-6", first floor level 12'-0", terrace 22'-0", parapet 25'-0", stair cap 30'-6".
+- Stair doors (ground entry and first-floor landing) are placed on the stair's north face; light slots are design additions.
+- Plan shows folding doors from the sit-out; these are drawn as sliding glass.
+- The kitchen window on the east wall opens into the enclosed stair and needs a vent or jali.
+- The east balcony is labelled 6'-6" but measures about 6'-1" on the drawing; the label was used.
+
+## Regenerating
+
+```bash
+cd src
+python3 elevations.py      # elevations + plan-alignment sheets -> ../v2
+python3 build_page.py      # ../index.html
+npm install three@0.160.0 --prefix three && ./render3d.sh ne nw se sw   # 3D views
+```
+
+Plan PDFs are kept in `plans/`.
