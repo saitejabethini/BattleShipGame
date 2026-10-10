@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Valamil Residence - Minimalist Elevations (plan-aligned)</title>
+<style>
+  :root { --ink:#141414; --muted:#5d5d5a; --paper:#f6f5f2; --line:rgba(0,0,0,.1); --blue:#1f6feb; --orange:#e8590c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family: Inter, "Helvetica Neue", Arial, sans-serif; color:var(--ink); background:var(--paper); line-height:1.55; }
+  .wrap { max-width:1180px; margin:0 auto; padding:2.5rem 1.25rem 4rem; }
+  header { margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--line); }
+  h1 { font-size:clamp(2rem,4.5vw,3rem); letter-spacing:-.02em; line-height:1.05; }
+  .lede { color:var(--muted); max-width:46rem; margin-top:.75rem; font-size:1.05rem; }
+  nav { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.1rem; }
+  nav a { color:var(--ink); text-decoration:none; font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; padding:.4rem .7rem; border:1px solid var(--line); background:#fff; }
+  nav a:hover { background:var(--ink); color:#fff; }
+  section { margin-bottom:3rem; }
+  h2 { font-size:1.45rem; letter-spacing:-.01em; margin-bottom:.3rem; }
+  .sub { color:var(--muted); font-size:.95rem; margin-bottom:1rem; max-width:50rem; }
+  figure { background:#fff; border:1px solid var(--line); overflow:hidden; }
+  figure img { display:block; width:100%; height:auto; }
+  figcaption { padding:.7rem 1rem; font-size:.85rem; color:var(--muted); border-top:1px solid var(--line); }
+  .grid-2 { display:grid; gap:1rem; grid-template-columns:1fr; }
+  @media (min-width:820px) { .grid-2 { grid-template-columns:1fr 1fr; } }
+  details { margin-top:.9rem; background:#fff; border:1px solid var(--line); }
+  summary { cursor:pointer; padding:.7rem 1rem; font-size:.88rem; font-weight:600; }
+  details figure, details table { margin:0; border:0; border-top:1px solid var(--line); }
+  table { width:100%; border-collapse:collapse; font-size:.82rem; }
+  th, td { text-align:left; padding:.5rem .7rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { background:#faf9f7; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+  .cards { display:grid; gap:1rem; grid-template-columns:1fr; }
+  @media (min-width:820px) { .cards { grid-template-columns:repeat(3,1fr); } }
+  .card { background:#fff; border:1px solid var(--line); padding:1rem 1.1rem; }
+  .card h3 { font-size:.74rem; text-transform:uppercase; letter-spacing:.1em; margin-bottom:.45rem; }
+  .card ul { padding-left:1.1rem; font-size:.9rem; color:var(--muted); }
+  .card li + li { margin-top:.3rem; }
+  .tag { display:inline-block; font-size:.7rem; font-weight:700; padding:.1rem .45rem; color:#fff; margin-right:.3rem; }
+  .tag.b { background:var(--blue); } .tag.o { background:var(--orange); }
+  footer { font-size:.84rem; color:var(--muted); border-top:1px solid var(--line); padding-top:1.1rem; }
+  code { background:#eceae5; padding:.05rem .3rem; font-size:.85em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Valamil Residence - minimalist elevations</h1>
+    <p class="lede">Redrawn from the measured geometry of your two floor plans. Every door, window, balcony and the stair position comes from the PDF drawings, so each elevation lines up with the plan. The external stair is now a covered volume that forms part of the east facade.</p>
+    <nav>
+      <a href="#views3d">3D views</a><a href="#north">North</a><a href="#east">East</a><a href="#south">South</a><a href="#west">West</a><a href="#read">How the plan was read</a><a href="#assumptions">Assumptions</a>
+    </nav>
+  </header>
+
+  <section id="views3d">
+    <h2>3D views</h2>
+    <p class="sub">Generated from the same data as the elevations. North and East are the two road-facing fronts.</p>
+    <figure>
+      <img src="v2/view3d-ne.png" alt="North-east corner view" />
+      <figcaption>North-east corner: 4'-0" north balcony with sliding glass doors, 6'-6" east balcony, covered stair tower at the south end of the east face.</figcaption>
+    </figure>
+    <div class="grid-2" style="margin-top:1rem">
+      <figure><img src="v2/view3d-nw.png" alt="North-west view" loading="lazy" /><figcaption>North-west corner</figcaption></figure>
+      <figure><img src="v2/view3d-se.png" alt="South-east view" loading="lazy" /><figcaption>South-east corner</figcaption></figure>
+      <figure><img src="v2/view3d-sw.png" alt="South-west view" loading="lazy" /><figcaption>South-west corner (rear)</figcaption></figure>
+    </div>
+  </section>
+
+  
+    <section id="north">
+      <h2>North Elevation</h2>
+      <p class="sub">Faces North Road. Ground floor: entry door and Drawing window. First floor: four-panel sliding glass door onto the 4'-0" balcony behind a frameless glass balustrade, plus the toilet window.</p>
+      <figure><img src="v2/north-elevation.png" alt="NORTH ELEVATION" /></figure>
+      <details>
+        <summary>Openings on this face, measured from the plan</summary>
+        <table>
+          <thead><tr><th>Floor</th><th>Type</th><th>Room / use</th><th>Position from left edge</th><th>Width</th><th>Sill to head (above floor)</th></tr></thead>
+          <tbody><tr><td>Ground</td><td>Door</td><td>Door (north entry)</td><td>3'-4" to 6'-2"</td><td>2'-10"</td><td>0'-0" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Window</td><td>Drawing window</td><td>9'-10" to 12'-8"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Sliding glass door</td><td>Sit-out sliding door to north balcony</td><td>2'-3" to 12'-2"</td><td>9'-11"</td><td>0'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Toilet window (frosted)</td><td>Toilet window</td><td>22'-8" to 25'-6"</td><td>2'-10"</td><td>4'-6" to 7'-0"</td></tr></tbody>
+        </table>
+      </details>
+      <details>
+        <summary>Alignment check: this elevation projected from both floor plans</summary>
+        <figure><img src="v2/north-plan-check.png" alt="NORTH ELEVATION aligned with plans" loading="lazy" /></figure>
+      </details>
+    </section>
+    <section id="east">
+      <h2>East Elevation</h2>
+      <p class="sub">Faces East Road. The covered stair is the dark volume at the south end; the 6'-6" balcony shades the car porch. Ground floor: main entrance, Drawing and Pooja windows (the Kitchen window is inside the stair enclosure).</p>
+      <figure><img src="v2/east-elevation.png" alt="EAST ELEVATION" /></figure>
+      <details>
+        <summary>Openings on this face, measured from the plan</summary>
+        <table>
+          <thead><tr><th>Floor</th><th>Type</th><th>Room / use</th><th>Position from left edge</th><th>Width</th><th>Sill to head (above floor)</th></tr></thead>
+          <tbody><tr><td>Ground</td><td>Window</td><td>Kitchen window (opens into covered stair)</td><td>7'-4" to 10'-1"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Window</td><td>Pooja window</td><td>17'-3" to 20'-1"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Window</td><td>Drawing window</td><td>27'-2" to 30'-0"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Door</td><td>Main entrance</td><td>30'-3" to 33'-1"</td><td>2'-10"</td><td>0'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Window</td><td>Sit-out window</td><td>18'-0" to 20'-10"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Window</td><td>Sit-out window</td><td>22'-8" to 25'-6"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Sliding glass door</td><td>Sit-out door to east balcony</td><td>26'-6" to 33'-10"</td><td>7'-5"</td><td>0'-0" to 7'-0"</td></tr></tbody>
+        </table>
+      </details>
+      <details>
+        <summary>Alignment check: this elevation projected from both floor plans</summary>
+        <figure><img src="v2/east-plan-check.png" alt="EAST ELEVATION aligned with plans" loading="lazy" /></figure>
+      </details>
+    </section>
+    <section id="south">
+      <h2>South Elevation</h2>
+      <p class="sub">Side elevation, 3'-0" setback. Kitchen service door, dining and master bedroom windows below; toilet and bedroom windows above. The stair volume is flush with this face.</p>
+      <figure><img src="v2/south-elevation.png" alt="SOUTH ELEVATION" /></figure>
+      <details>
+        <summary>Openings on this face, measured from the plan</summary>
+        <table>
+          <thead><tr><th>Floor</th><th>Type</th><th>Room / use</th><th>Position from left edge</th><th>Width</th><th>Sill to head (above floor)</th></tr></thead>
+          <tbody><tr><td>Ground</td><td>Window</td><td>Master bedroom window</td><td>11'-11" to 14'-9"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Window</td><td>Dining window</td><td>16'-8" to 19'-5"</td><td>2'-9"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Door</td><td>Kitchen service door</td><td>19'-8" to 22'-7"</td><td>2'-11"</td><td>0'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Window</td><td>Bedroom window</td><td>11'-11" to 14'-9"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Toilet window (frosted)</td><td>Toilet window</td><td>22'-4" to 25'-2"</td><td>2'-10"</td><td>4'-6" to 7'-0"</td></tr></tbody>
+        </table>
+      </details>
+      <details>
+        <summary>Alignment check: this elevation projected from both floor plans</summary>
+        <figure><img src="v2/south-plan-check.png" alt="SOUTH ELEVATION aligned with plans" loading="lazy" /></figure>
+      </details>
+    </section>
+    <section id="west">
+      <h2>West Elevation</h2>
+      <p class="sub">Rear elevation, 4'-0" setback. Three windows per floor as drawn on the plans; the north balcony's glass return shows at the left and the stair cap rises behind the parapet.</p>
+      <figure><img src="v2/west-elevation.png" alt="WEST ELEVATION" /></figure>
+      <details>
+        <summary>Openings on this face, measured from the plan</summary>
+        <table>
+          <thead><tr><th>Floor</th><th>Type</th><th>Room / use</th><th>Position from left edge</th><th>Width</th><th>Sill to head (above floor)</th></tr></thead>
+          <tbody><tr><td>Ground</td><td>Toilet window (frosted)</td><td>Toilet window</td><td>10'-11" to 13'-9"</td><td>2'-10"</td><td>4'-6" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Window</td><td>Master bedroom window</td><td>16'-2" to 19'-0"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>Ground</td><td>Window</td><td>Master bedroom window</td><td>29'-1" to 31'-11"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Window</td><td>Bedroom window</td><td>6'-7" to 9'-5"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Window</td><td>Bedroom window</td><td>21'-1" to 23'-11"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr>
+<tr><td>First</td><td>Window</td><td>Bedroom window</td><td>30'-4" to 33'-2"</td><td>2'-10"</td><td>3'-0" to 7'-0"</td></tr></tbody>
+        </table>
+      </details>
+      <details>
+        <summary>Alignment check: this elevation projected from both floor plans</summary>
+        <figure><img src="v2/west-plan-check.png" alt="WEST ELEVATION aligned with plans" loading="lazy" /></figure>
+      </details>
+    </section>
+
+  <section id="read">
+    <h2>How the plan was read</h2>
+    <p class="sub">The sheets are rotated: on the plan, <b>North Road is on the left</b> and <b>East Road is on top</b> (the north arrow points left). Earlier concept images had the sides mirrored.</p>
+    <div class="cards">
+      <div class="card"><h3>Orientation</h3><ul>
+        <li>Plot 45' (north-south) x 42' (east-west), corner plot</li>
+        <li>Building 36'-6" (north-south) x 30'-0" (east-west)</li>
+        <li>Setbacks: east 9' (car park + stair), west 4', south 3'</li>
+        <li>Gates are on the North Road side</li></ul></div>
+      <div class="card"><h3>Ground floor (as per plan)</h3><ul>
+        <li>North wall: entry door and one Drawing window</li>
+        <li>East wall: main entrance, Drawing window, Pooja window, Kitchen window</li>
+        <li>South wall: kitchen service door, dining window, master bedroom window</li>
+        <li>West wall: toilet window and two master bedroom windows</li></ul></div>
+      <div class="card"><h3>First floor</h3><ul>
+        <li>Sit-out opens to the <b>4'-0" north balcony</b> through an opening about 10'-0" wide, drawn as sliding glass doors</li>
+        <li>Sit-out also opens to the <b>6'-6" east balcony</b> (about 7'-5" opening) plus two windows</li>
+        <li>Bedrooms and toilets keep their plan windows on the south and west</li></ul></div>
+    </div>
+    <p class="sub" style="margin-top:1rem">Each elevation has an alignment sheet: the plan is rotated so the facade faces you, and dashed lines run from every opening on the plan up into the elevation (<span class="tag b">GF</span> blue, <span class="tag o">FF</span> orange).</p>
+  </section>
+
+  <section id="assumptions">
+    <h2>Assumptions to confirm</h2>
+    <p class="sub">The plans give plan positions only, so these items are design choices rather than plan data.</p>
+    <div class="cards">
+      <div class="card"><h3>Heights</h3><ul>
+        <li>Plinth 1'-6", floor-to-floor 10'-6" (12'-0" first floor level)</li>
+        <li>Terrace slab at 22'-0", 3'-0" parapet</li>
+        <li>Windows 3'-0" sill to 7'-0" head; toilet windows 4'-6" sill</li>
+        <li>Stair headroom cover rises to 30'-6"</li></ul></div>
+      <div class="card"><h3>Covered stair</h3><ul>
+        <li>Footprint taken from the plan: 14'-4" x 6'-6" (including its 8" north wall) at the south end of the east side, flush with the south wall and the balcony edge</li>
+        <li>Entry door and first floor landing door are on the stair's north face, onto the car porch and the east balcony</li>
+        <li>Light slots and a head ribbon are design additions</li></ul></div>
+      <div class="card"><h3>Things the plan raises</h3><ul>
+        <li>The kitchen window (east wall) now opens into the covered stair, so it needs a vent or jali there</li>
+        <li>The plan shows the sit-out east and north openings as folding doors; both are drawn as sliding glass</li>
+        <li>The east balcony label says 6'-6"; the drawn hatch measures about 6'-1". The label was used.</li></ul></div>
+    </div>
+  </section>
+
+  <footer>
+    Concept elevations for discussion, not construction drawings. Regenerate with <code>python3 src/elevations.py</code> and <code>python3 src/build_page.py</code>; 3D views with <code>src/render3d.sh</code>.
+  </footer>
+</div>
+</body>
+</html>
