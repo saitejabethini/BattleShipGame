@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Valamil Residence — Elevation Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1c1914;
+      --muted: #5c564c;
+      --cream: #f3eee4;
+      --sand: #e4d7c3;
+      --clay: #8b6a45;
+      --charcoal: #2e2b27;
+      --line: rgba(28, 25, 20, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% 0%, #efe6d6 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 20%, #ddd2c0 0%, transparent 50%),
+        linear-gradient(180deg, var(--cream) 0%, #ebe4d8 100%);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    header {
+      display: grid;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+      color: var(--charcoal);
+    }
+    .lede { max-width: 40rem; color: var(--muted); font-size: 1.05rem; }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem;
+      font-size: 0.85rem; color: var(--clay); font-weight: 500;
+    }
+    section { margin-bottom: 2.75rem; }
+    h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.75rem; font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    figure {
+      background: #fff;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    figure img { display: block; width: 100%; height: auto; }
+    figcaption {
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.7);
+      border-top: 1px solid var(--line);
+    }
+    .grid-2 {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 800px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+    .notes {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 700px) {
+      .notes { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .note {
+      padding: 1.1rem 1.15rem;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--line);
+    }
+    .note h3 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--clay);
+      margin-bottom: 0.45rem;
+    }
+    .note p, .note ul { font-size: 0.92rem; color: var(--muted); }
+    .note ul { padding-left: 1.1rem; }
+    .note li + li { margin-top: 0.25rem; }
+    .palette {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.75rem;
+    }
+    .swatch {
+      width: 2.4rem; height: 2.4rem;
+      border: 1px solid var(--line);
+    }
+    .swatch.cream { background: #e8dcc8; }
+    .swatch.charcoal { background: #2e2b27; }
+    .swatch.teak { background: #7a5230; }
+    .swatch.stone { background: #9a9084; }
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="brand">Valamil Residence</p>
+      <p class="lede">Two-storey elevation design from the ground and first floor plans — corner plot addressing North Road and East Road.</p>
+      <p class="meta">
+        <span>Footprint ≈ 36'-6" × 30'-0"</span>
+        <span>Flat terrace roof</span>
+        <span>Modern tropical contemporary</span>
+      </p>
+    </header>
+
+    <section>
+      <h2>Corner view</h2>
+      <p class="sub">Northeast massing — both street faces together.</p>
+      <figure>
+        <img src="corner-perspective.jpg" alt="Northeast corner perspective of the two-storey house" />
+        <figcaption>NE corner perspective — north balcony + east porch / stair tower</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Elevations</h2>
+      <p class="sub">Orthographic street elevations aligned to the plans.</p>
+      <div class="grid-2">
+        <figure>
+          <img src="north-elevation.jpg" alt="North elevation front" />
+          <figcaption>North elevation — Drawing room below, sit-out balcony above</figcaption>
+        </figure>
+        <figure>
+          <img src="east-elevation.jpg" alt="East elevation road side" />
+          <figcaption>East elevation — porch canopy, car bay, external stair</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Design notes</h2>
+      <p class="sub">How the plans drive the facade.</p>
+      <div class="notes">
+        <div class="note">
+          <h3>Massing</h3>
+          <ul>
+            <li>Simple rectangular two-storey volume</li>
+            <li>North balcony (6'-6") + west wrap (4'-0")</li>
+            <li>East stair as vertical accent tower</li>
+            <li>Flat RCC terrace with thin parapet</li>
+          </ul>
+        </div>
+        <div class="note">
+          <h3>Openings</h3>
+          <ul>
+            <li>Tall Drawing fenestration on North Road</li>
+            <li>Full-width sit-out glazing behind balcony</li>
+            <li>Kitchen / bedroom windows on East</li>
+            <li>Teak frames, horizontal balcony railing</li>
+          </ul>
+        </div>
+        <div class="note">
+          <h3>Palette</h3>
+          <p>Cream plaster, charcoal accent, teak wood, light stone on stair.</p>
+          <div class="palette" aria-hidden="true">
+            <span class="swatch cream" title="Cream"></span>
+            <span class="swatch charcoal" title="Charcoal"></span>
+            <span class="swatch teak" title="Teak"></span>
+            <span class="swatch stone" title="Stone"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Source plans</h2>
+      <p class="sub">Uploaded ground and first floor references.</p>
+      <div class="grid-2">
+        <figure>
+          <img src="ground_floor.png" alt="Ground floor plan" />
+          <figcaption>Ground floor plan</figcaption>
+        </figure>
+        <figure>
+          <img src="first_floor.png" alt="First floor plan" />
+          <figcaption>First floor plan</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <footer>
+      Concept elevations for discussion — not construction documents. Dimensions and openings should be verified against working drawings before build.
+    </footer>
+  </div>
+</body>
+</html>
